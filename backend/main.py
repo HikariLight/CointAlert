@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
 import json
 import random
-from Utils import get_bitcoin_price, generate_random_price, verify_alerts
+from Utils import get_bitcoin_price, verify_alerts
 
 app = FastAPI()
 app.add_middleware(
