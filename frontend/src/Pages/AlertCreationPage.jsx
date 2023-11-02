@@ -1,5 +1,6 @@
 import { useState } from "react"
 import CustomButton from "../components/CustomButton"
+import Navbar from "../components/Navbar"
 
 const AlertCreationPage = () => {
     const [alertName, setAlertName] = useState()
@@ -38,6 +39,7 @@ const AlertCreationPage = () => {
 
     return (
         <div className="h-screen w-3/4 mx-auto">
+            <Navbar />
 
             <div className="border border-purple-800 rounded p-4 w-full">
                 <h1 className="text-2xl my-2 text-purple-800 text-center">

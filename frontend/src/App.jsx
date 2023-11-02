@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import AlertBox from "./components/AlertBox"
+import Navbar from "./components/Navbar"
 
 const App = () => {
   
@@ -15,17 +16,22 @@ const App = () => {
       })
   }, [])
 
-  const getAlerts = async () => {
-    fetch(apiUrl)
-    .then(response => {return response.json()})
-    .then(data => {setAlerts(JSON.parse(data))})
-    .catch(error => {
-      console.error('Error fetching data:', error);
-    })
-  }
-  
-  return (
-    <div className="h-screen w-screen">
+    const getAlerts = async () => {
+        fetch(apiUrl)
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                setAlerts(JSON.parse(data))
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error)
+            })
+    }
+
+    return (
+        <div className="h-screen w-3/4 mx-auto">
+            <Navbar />
 
       <div className="flex flex-col border border-purple-800 rounded m-2 p-2">
         <h1 className="text-2xl my-2 text-purple-800 text-center">CointAlert</h1>
