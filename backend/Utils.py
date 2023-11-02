@@ -22,10 +22,7 @@ def verify_alerts(alert_definitions):
     result = []
 
     for alert_definition in alert_definitions:
-
-        alert_name, alert_type, cryptocurrency_name, limit = alert_definition.values()
-        limit = int(limit)
-
+        cryptocurrency_name, alert_type, limit = alert_definition["cryptocurrency_name"], alert_definition["alert_type"], alert_definition["limit"]
         cryptocurrency_price = get_crypto_price(cryptocurrency_name)
 
         if (alert_type == "gte"):
@@ -53,8 +50,7 @@ def random_verify_alerts(alert_definitions):
     result = []
 
     for alert_definition in alert_definitions:
-        alert_name, alert_type, cryptocurrency_name, limit = alert_definition.values()
-        limit = int(limit)
+        cryptocurrency_name, alert_type, limit = alert_definition["cryptocurrency_name"], alert_definition["alert_type"], alert_definition["limit"]
 
         cryptocurrency_price = random.randint(limit / 2, limit * 2)
 
