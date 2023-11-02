@@ -57,6 +57,10 @@ async def create_alert(request: Request):
 
     return "Success"
 
+@app.get("/alertDefinitions")
+async def return_alert_definitions(request: Request):
+    return json.dumps(alert_definitions)
+
 
 @app.on_event("startup")
 def startup():
