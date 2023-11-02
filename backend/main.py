@@ -16,13 +16,7 @@ app.add_middleware(
 )
 
 
-bitcoin_alert = {
-    "name": "Bitcoin under 5000$ alert",
-    "Cryptocurrency": "BTC",
-    "limit": 5000
-}
-
-alert_definitions = [bitcoin_alert]
+alert_definitions = []
 alerts = []
 
 @app.get("/")
@@ -33,6 +27,17 @@ async def root(request: Request):
 async def return_alerts(request: Request):
     return json.dumps(alerts)
 
+
+@app.post("/createAlert")
+async def create_alert(request: Request):
+
+    data = await request.body()
+    alert = json.loads(data)
+    print(alert)
+    print(" > [/createAlert] Received alert definition: ", alert)
+    alert_definitions.append(alert)
+
+    return "Success"
 @app.on_event("startup")
 @repeat_every(seconds=1)
 def print_stuff():
