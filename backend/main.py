@@ -5,7 +5,7 @@ import json
 import os
 from supabase import create_client, Client
 from Utils import verify_alerts, random_verify_alerts
-
+from DB import get_alert_definitions
 
 app = FastAPI()
 app.add_middleware(
@@ -18,7 +18,7 @@ app.add_middleware(
 
 supabase_url: str = os.getenv("SUPABASE_URL")
 supabase_key: str = os.getenv("SUPABASE_KEY")
-supabase: Client = create_client(supabase_url, supabase_key)
+supabase_client: Client = create_client(supabase_url, supabase_key)
 
 alert_definitions = []
 alerts = []
@@ -35,6 +35,7 @@ async def return_alerts(request: Request):
 
 @app.post("/createAlert")
 async def create_alert(request: Request):
+    global alert_definitions
 
     data = await request.body()
     alert_definition = json.loads(data)
@@ -48,12 +49,13 @@ async def create_alert(request: Request):
         "cryptocurrency_name": cryptocurrency_name,
         "limit": int(limit)
     }
-    alert_definitions.append(db_data)
 
     try:
-        response = supabase.table('alert_definitions').insert(db_data).execute()
+        response = supabase_client.table('alert_definitions').insert(db_data).execute()
     except Exception as e:
         print(" > [/createAlert] Alert insertion into DB error: ", e)
+
+    alert_definitions = get_alert_definitions(supabase_client)
 
     return "Success"
 
@@ -61,16 +63,27 @@ async def create_alert(request: Request):
 async def return_alert_definitions(request: Request):
     return json.dumps(alert_definitions)
 
+@app.post("/deleteAlertDefinition")
+async def delete_alert_definition(request: Request):
+    global alert_definitions
+
+    data = await request.body()
+    alert_definition_id = json.loads(data)
+
+    try:
+        response = supabase_client.table('alert_definitions').delete().eq('id', alert_definition_id["alertDefinitionId"]).execute()
+        alert_definitions = [d for d in alert_definitions if d.get("id") != alert_definition_id["alertDefinitionId"]]
+    except Exception as e:
+        print(" > [/deleteAlertDefinition] Alert deletion from DB error: ", e)
+
+    alert_definitions = get_alert_definitions(supabase_client)
+
+    return "success"
 
 @app.on_event("startup")
 def startup():
     global alert_definitions
-    try:
-        response = supabase.table('alert_definitions').select("*").execute()
-    except Exception as e:
-        print(" > [Startup] Alert fetching alert definitions: ", e)
-
-    alert_definitions = response.data
+    alert_definitions = get_alert_definitions(supabase_client)
 
 @app.on_event("startup")
 @repeat_every(seconds=1)
