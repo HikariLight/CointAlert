@@ -12,6 +12,13 @@ const Navbar = () => {
                         Create Alert
                     </a>
                 </li>
+                <li>
+                    <a
+                        className="hover:text-purple-800"
+                        href="/alertDefinitions">
+                        Alert Definitions
+                    </a>
+                </li>
             </ul>
         </nav>
     )
