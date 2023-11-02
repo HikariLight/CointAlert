@@ -4,7 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
 import json
 import random
-from Utils import get_bitcoin_price, verify_alerts
+from Utils import verify_alerts, random_verify_alerts
+
 
 app = FastAPI()
 app.add_middleware(
@@ -16,29 +17,43 @@ app.add_middleware(
 )
 
 
-bitcoin_alert = {
-    "name": "Bitcoin under 5000$ alert",
-    "Cryptocurrency": "BTC",
-    "limit": 5000
-}
-
-alert_definitions = [bitcoin_alert]
+alert_definitions = []
 alerts = []
+
 
 @app.get("/")
 async def root(request: Request):
-    return "Hello! CoinAlert here!"
+    return "Hello! CoinAlert API here!"
+
 
 @app.get("/getAlerts")
 async def return_alerts(request: Request):
     return json.dumps(alerts)
 
+
+@app.post("/createAlert")
+async def create_alert(request: Request):
+
+    data = await request.body()
+    alert = json.loads(data)
+    print(alert)
+    print(" > [/createAlert] Received alert definition: ", alert)
+    alert_definitions.append(alert)
+
+    return "Success"
+
+
+@app.on_event("startup")
+def startup():
+    pass
+
+
 @app.on_event("startup")
 @repeat_every(seconds=1)
-def print_stuff():
-    # price = get_bitcoin_price()
-    price = random.randint(4000, 6000)
-    print(f"Bitcoin price at {datetime.now()}: ", price)
-    alert = verify_alerts(price, alert_definitions)
-    if alert != None:
+def on_repeat():
+    # detected_alerts = verify_alerts(alert_definitions)
+    detected_alerts = random_verify_alerts(alert_definitions)
+    for alert in detected_alerts:
         alerts.append(alert)
+
+    print(f" > Detected {len(alerts)} alerts.")
