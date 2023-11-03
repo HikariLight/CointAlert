@@ -12,7 +12,7 @@ const router = createBrowserRouter([
         element: <App />,
     },
     {
-        path: "/createAlert",
+        path: "/createAlertDefinition",
         element: <AlertCreationPage />,
     },
     {

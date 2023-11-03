@@ -8,15 +8,10 @@ const Navbar = () => {
                     </a>
                 </li>
                 <li>
-                    <a className="hover:text-purple-800" href="/createAlert">
-                        Create Alert
-                    </a>
-                </li>
-                <li>
                     <a
                         className="hover:text-purple-800"
                         href="/alertDefinitions">
-                        Alert Definitions
+                        Manage Alert Definitions
                     </a>
                 </li>
             </ul>
