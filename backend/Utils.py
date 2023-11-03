@@ -32,6 +32,7 @@ def verify_alerts(alert_definitions):
                     "date": datetime.now().isoformat(),
                     "price": cryptocurrency_price
                 }
+                alert.pop("id")
                 result.append(alert)
 
         if (alert_type == "lt"):
@@ -41,6 +42,7 @@ def verify_alerts(alert_definitions):
                     "date": datetime.now().isoformat(),
                     "price": cryptocurrency_price
                 }
+                alert.pop("id")
                 result.append(alert)
 
     return result

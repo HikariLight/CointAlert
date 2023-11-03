@@ -80,6 +80,34 @@ async def delete_alert_definition(request: Request):
 
     return "success"
 
+@app.delete("/deleteAlert")
+async def delete_all_alerts(request: Request):
+    global alerts
+
+    data = await request.body()
+    alert_id = json.loads(data)["alertId"]
+
+    try:
+        response = supabase_client.table('alerts').delete().eq("id", alert_id).execute()
+        alerts = get_alerts(supabase_client)
+    except Exception as e:
+        print(" > [/deleteAlert] Alert deletion from DB error: ", e)
+
+    return json.dumps({"status": "success"})
+
+@app.delete("/deleteAllAlerts")
+async def delete_all_alerts(request: Request):
+    global alerts
+
+    try:
+        response = supabase_client.table('alerts').delete().neq("id", "0").execute()
+    except Exception as e:
+        print(" > [/deleteAllAlerts] Alerts deletion from DB error: ", e)
+
+    alerts = []
+
+    return json.dumps({"status": "success"})
+
 
 # ----- Startup scripts ----
 @app.on_event("startup")

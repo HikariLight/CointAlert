@@ -4,11 +4,14 @@ import Navbar from "./components/Navbar"
 import CustomButton from "./components/CustomButton"
 
 const App = () => {
-    const apiUrl = "http://127.0.0.1:8000/getAlerts"
+    const apiUrl = "http://127.0.0.1:8000/"
+    const getAlertsEndPoint = "getAlerts"
+    const deleteAllAlertsEndPoint = "deleteAllAlerts"
+
     const [alerts, setAlerts] = useState([])
 
     useEffect(() => {
-        fetch(apiUrl)
+        fetch(apiUrl + getAlertsEndPoint)
             .then((response) => response.json())
             .then((data) => {
                 setAlerts(JSON.parse(data))
@@ -19,12 +22,25 @@ const App = () => {
     }, [])
 
     const getAlerts = async () => {
-        fetch(apiUrl)
+        fetch(apiUrl + getAlertsEndPoint)
             .then((response) => {
                 return response.json()
             })
             .then((data) => {
                 setAlerts(JSON.parse(data))
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error)
+            })
+    }
+
+    const deleteAlerts = async () => {
+        fetch(apiUrl + deleteAllAlertsEndPoint, { method: "DELETE" })
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                console.log(data)
             })
             .catch((error) => {
                 console.error("Error fetching data:", error)
@@ -44,7 +60,13 @@ const App = () => {
                     There are currently {alerts.length} alerts.
                 </h3>
 
-                <CustomButton content="Get Alerts" func={getAlerts} />
+                <div className="flex gap-2">
+                    <CustomButton content="Get Alerts" func={getAlerts} />
+                    <CustomButton
+                        content="Delete All Alerts"
+                        func={deleteAlerts}
+                    />
+                </div>
             </div>
 
             <div className="grid grid-cols-3 gap-3">
