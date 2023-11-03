@@ -3,7 +3,7 @@ from fastapi_utils.tasks import repeat_every
 from fastapi.middleware.cors import CORSMiddleware
 from routers import alerts, alert_definitions
 
-from Utils import verify_alerts, random_verify_alerts
+from Utils import verify_alerts
 from DB import get_alert_definitions
 from dependencies import supabase_client
 
@@ -28,8 +28,7 @@ async def root():
 @repeat_every(seconds=1)
 def on_repeat():
     alert_definitions = get_alert_definitions(supabase_client)
-    # detected_alerts = verify_alerts(alert_definitions)
-    detected_alerts = random_verify_alerts(alert_definitions)
+    detected_alerts = verify_alerts(alert_definitions)
     for alert in detected_alerts:
         try:
             response = supabase_client.table('alerts').insert(alert).execute()
