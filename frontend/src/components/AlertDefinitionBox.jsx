@@ -1,3 +1,5 @@
+import CustomButton from "./CustomButton"
+
 const AlertDefinitionBox = ({ alertDefinition }) => {
     const deleteAlertDefinition = () => {
         const apiUrl = "http://127.0.0.1:8000/deleteAlertDefinition"
@@ -35,11 +37,15 @@ const AlertDefinitionBox = ({ alertDefinition }) => {
                 <h3>Alert limit: {alertDefinition.limit}</h3>
             </div>
 
-            <button
-                onClick={() => deleteAlertDefinition()}
-                className="bg-purple-800 hover:bg-red-800 text-white rounded-md">
-                Delete
-            </button>
+            <div className="flex flex-col gap-2">
+                <CustomButton
+                    content="Delete"
+                    func={deleteAlertDefinition}></CustomButton>
+
+                <a href={`/modifyAlertDefinition/${alertDefinition.id}`}>
+                    <CustomButton content="Modify" />
+                </a>
+            </div>
         </div>
     )
 }
