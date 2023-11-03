@@ -5,7 +5,7 @@ import json
 import os
 from supabase import create_client, Client
 from Utils import verify_alerts, random_verify_alerts
-from DB import get_alert_definitions
+from DB import get_alert_definitions, get_alerts
 
 app = FastAPI()
 app.add_middleware(
@@ -80,10 +80,13 @@ async def delete_alert_definition(request: Request):
 
     return "success"
 
+
+# ----- Startup scripts ----
 @app.on_event("startup")
 def startup():
-    global alert_definitions
+    global alert_definitions, alerts
     alert_definitions = get_alert_definitions(supabase_client)
+    alerts = get_alerts(supabase_client)
 
 @app.on_event("startup")
 @repeat_every(seconds=1)
@@ -91,6 +94,8 @@ def on_repeat():
     # detected_alerts = verify_alerts(alert_definitions)
     detected_alerts = random_verify_alerts(alert_definitions)
     for alert in detected_alerts:
-        alerts.append(alert)
-
-    print(f" > Detected {len(alerts)} alerts.")
+        try:
+            response = supabase_client.table('alerts').insert(alert).execute()
+            alerts.append(alert)
+        except Exception as e:
+            print(" > Alert storage error: ", e)
