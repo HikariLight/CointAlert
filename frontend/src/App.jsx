@@ -40,6 +40,10 @@ const App = () => {
                     CointAlert
                 </h1>
 
+                <h3 className="text-xl my-2 text-purple-800 text-center">
+                    There are currently {alerts.length} alerts.
+                </h3>
+
                 <CustomButton content="Get Alerts" func={getAlerts} />
             </div>
 
