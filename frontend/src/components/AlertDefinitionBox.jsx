@@ -1,29 +1,22 @@
 import CustomButton from "./CustomButton"
 
 const AlertDefinitionBox = ({ alertDefinition }) => {
+    const apiURL = import.meta.env.VITE_serverURL
+    const alertDefinitionsEndpoint = import.meta.env
+        .VITE_alertDefinitionsEndpoint
+
     const deleteAlertDefinition = () => {
-        const apiUrl = "http://127.0.0.1:8000/deleteAlertDefinition"
-
-        const data = {
-            alertDefinitionId: alertDefinition.id,
-        }
-
-        const headers = {
-            "Content-Type": "application/json",
-        }
-
-        const request = {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(data),
-        }
-
-        fetch(apiUrl, request)
+        fetch(apiURL + alertDefinitionsEndpoint + alertDefinition.id, {
+            method: "DELETE",
+        })
             .then((response) => {
                 return response.json()
             })
             .then((data) => {
                 console.log(data)
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error)
             })
     }
 

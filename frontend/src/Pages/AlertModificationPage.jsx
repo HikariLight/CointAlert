@@ -4,7 +4,10 @@ import Navbar from "../components/Navbar"
 import { useParams } from "react-router-dom"
 
 const AlertDefinitionModificationPage = () => {
-    const apiUrl = "http://127.0.0.1:8000/"
+    const apiURL = import.meta.env.VITE_serverURL
+    const alertDefinitionsEndpoint = import.meta.env
+        .VITE_alertDefinitionsEndpoint
+
     const [alertDefinition, setAlertDefinition] = useState({})
     const [alertName, setAlertName] = useState()
     const [cryptocurrencyName, setCryptocurrencyName] = useState()
@@ -13,7 +16,7 @@ const AlertDefinitionModificationPage = () => {
     const params = useParams()
 
     useEffect(() => {
-        fetch(apiUrl + "alertDefinition/" + params.id)
+        fetch(apiURL + alertDefinitionsEndpoint + params.id)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
@@ -49,7 +52,7 @@ const AlertDefinitionModificationPage = () => {
             body: JSON.stringify(data),
         }
 
-        fetch(apiUrl + "modifyAlertDefinition", request)
+        fetch(apiURL + alertDefinitionsEndpoint, request)
             .then((response) => {
                 return response.json()
             })

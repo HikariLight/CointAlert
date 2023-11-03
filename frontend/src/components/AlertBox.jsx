@@ -1,27 +1,21 @@
 const AlertBox = ({ alert }) => {
+    const apiURL = import.meta.env.VITE_serverURL
+    const alertsEndpoint = import.meta.env.VITE_alertsEndpoint
+
     const deleteAlert = () => {
-        const apiUrl = "http://127.0.0.1:8000/deleteAlert"
-
-        const data = {
-            alertId: alert.id,
-        }
-
-        const headers = {
-            "Content-Type": "application/json",
-        }
-
         const request = {
             method: "DELETE",
-            headers: headers,
-            body: JSON.stringify(data),
         }
 
-        fetch(apiUrl, request)
+        fetch(apiURL + alertsEndpoint + alert.id, request)
             .then((response) => {
                 return response.json()
             })
             .then((data) => {
                 console.log(data)
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error)
             })
     }
 
