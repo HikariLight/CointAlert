@@ -27,10 +27,6 @@ const AlertDefinitionsPage = () => {
                     Alert Definition Management
                 </h1>
 
-                <h3 className="text-xl my-2 text-purple-800 text-center">
-                    There are currently alerts.
-                </h3>
-
                 <a href="/createAlertDefinition">
                     <CustomButton content="Create new Alert Definition" />
                 </a>
