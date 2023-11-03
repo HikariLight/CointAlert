@@ -4,14 +4,13 @@ import Navbar from "./components/Navbar"
 import CustomButton from "./components/CustomButton"
 
 const App = () => {
-    const apiUrl = "http://127.0.0.1:8000/"
-    const getAlertsEndPoint = "getAlerts"
-    const deleteAllAlertsEndPoint = "deleteAllAlerts"
+    const apiURL = import.meta.env.VITE_serverURL
+    const alertsEndpoint = import.meta.env.VITE_alertsEndpoint
 
     const [alerts, setAlerts] = useState([])
 
     useEffect(() => {
-        fetch(apiUrl + getAlertsEndPoint)
+        fetch(apiURL + alertsEndpoint)
             .then((response) => response.json())
             .then((data) => {
                 setAlerts(JSON.parse(data))
@@ -22,7 +21,7 @@ const App = () => {
     }, [])
 
     const getAlerts = async () => {
-        fetch(apiUrl + getAlertsEndPoint)
+        fetch(apiURL + alertsEndpoint)
             .then((response) => {
                 return response.json()
             })
@@ -35,7 +34,7 @@ const App = () => {
     }
 
     const deleteAlerts = async () => {
-        fetch(apiUrl + deleteAllAlertsEndPoint, { method: "DELETE" })
+        fetch(apiURL + alertsEndpoint, { method: "DELETE" })
             .then((response) => {
                 return response.json()
             })

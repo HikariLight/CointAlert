@@ -4,12 +4,14 @@ import AlertDefinitionBox from "../components/AlertDefinitionBox"
 import CustomButton from "../components/CustomButton"
 
 const AlertDefinitionsPage = () => {
+    const apiURL = import.meta.env.VITE_serverURL
+    const alertDefinitionsEndpoint = import.meta.env
+        .VITE_alertDefinitionsEndpoint
+
     const [alertDefinitions, setAlertDefinitions] = useState([])
 
     useEffect(() => {
-        const apiUrl = "http://127.0.0.1:8000/alertDefinitions"
-
-        fetch(apiUrl)
+        fetch(apiURL + alertDefinitionsEndpoint)
             .then((response) => {
                 return response.json()
             })

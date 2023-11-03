@@ -3,19 +3,21 @@ import CustomButton from "../components/CustomButton"
 import Navbar from "../components/Navbar"
 
 const AlertCreationPage = () => {
+    const apiURL = import.meta.env.VITE_serverURL
+    const alertDefinitionsEndpoint = import.meta.env
+        .VITE_alertDefinitionsEndpoint
+
     const [alertName, setAlertName] = useState()
     const [cryptocurrencyName, setCryptocurrencyName] = useState()
     const [alertType, setAlertType] = useState()
     const [limit, setLimit] = useState()
 
     const handleClick = () => {
-        const apiUrl = "http://127.0.0.1:8000/createAlert"
-
         const data = {
             alert_name: alertName,
             alert_type: alertType,
             cryptocurrency: cryptocurrencyName,
-            limit: limit,
+            limit: Number(limit),
         }
 
         const headers = {
@@ -28,12 +30,15 @@ const AlertCreationPage = () => {
             body: JSON.stringify(data),
         }
 
-        fetch(apiUrl, request)
+        fetch(apiURL + alertDefinitionsEndpoint, request)
             .then((response) => {
                 return response.json()
             })
             .then((data) => {
                 console.log(data)
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error)
             })
     }
 
