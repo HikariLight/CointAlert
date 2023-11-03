@@ -61,7 +61,7 @@ const App = () => {
                 </h3>
 
                 <div className="flex gap-2">
-                    <CustomButton content="Get Alerts" func={getAlerts} />
+                    <CustomButton content="Refresh Alerts" func={getAlerts} />
                     <CustomButton
                         content="Delete All Alerts"
                         func={deleteAlerts}
