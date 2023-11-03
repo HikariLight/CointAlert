@@ -4,9 +4,7 @@ def get_alert_definitions(supabase_client):
     except Exception as e:
         print(" > [Startup] Alert fetching alert definitions: ", e)
 
-    alert_definitions = response.data
-
-    return alert_definitions
+    return response.data
 
 def get_alerts(supabase_client):
     try:
@@ -14,6 +12,4 @@ def get_alerts(supabase_client):
     except Exception as e:
         print(" > [Startup] Alert fetching alert definitions: ", e)
 
-    alerts = response.data
-
-    return alerts
+    return response.data
