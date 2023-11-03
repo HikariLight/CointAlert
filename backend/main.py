@@ -63,6 +63,17 @@ async def create_alert(request: Request):
 async def return_alert_definitions(request: Request):
     return json.dumps(alert_definitions)
 
+
+@app.get("/alertDefinition/{alert_definition_id}")
+async def return_alert_definitions(alert_definition_id: int):
+    try:
+        response = supabase_client.table('alert_definitions').select("*").eq('id', alert_definition_id).execute()
+    except Exception as e:
+        print(" > [alertDefinition] Alert fetching alert definitions: ", e)
+
+    return response.data[0]
+
+
 @app.post("/deleteAlertDefinition")
 async def delete_alert_definition(request: Request):
     global alert_definitions
@@ -107,6 +118,21 @@ async def delete_all_alerts(request: Request):
     alerts = []
 
     return json.dumps({"status": "success"})
+
+@app.put("/modifyAlertDefinition")
+async def return_alert_definitions(request: Request):
+    data = await request.body()
+    alert_definition = json.loads(data)
+
+    try:
+        # response = supabase_client.table('alert_definitions').update(alert_definition).eq('id', alert_definition["id"]).execute()
+        response = supabase_client.table('alert_definitions').update(alert_definition).eq('id', "999").execute()
+        print(" > [/modifyAlertDefinition] Alert definition modification request: ", response)
+    except Exception as e:
+        print(" > [/modifyAlertDefinition] Alert definition modification error: ", e)
+
+
+    json.dumps({"status": "success"})
 
 
 # ----- Startup scripts ----
