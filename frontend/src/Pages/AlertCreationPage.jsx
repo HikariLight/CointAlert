@@ -47,7 +47,7 @@ const AlertCreationPage = () => {
                 </h1>
 
                 <form className="flex flex-col space-y-4 items-center">
-                    <div className="flex flex-row gap-2">
+                    <div className="grid grid-cols-2 w-1/4">
                         <label className="self-center">Alert Name</label>
                         <input
                             className="border border-gray-300 rounded p-2"
@@ -59,7 +59,7 @@ const AlertCreationPage = () => {
                         />
                     </div>
 
-                    <div className="flex flex-row gap-2">
+                    <div className="grid grid-cols-2 w-1/4">
                         <label className="self-center">Cryptocurrency</label>
                         <select
                             className="border bg-white border-gray-300 rounded p-2"
@@ -83,7 +83,7 @@ const AlertCreationPage = () => {
                         </select>
                     </div>
 
-                    <div className="flex flex-row gap-2">
+                    <div className="grid grid-cols-2 w-1/4">
                         <label className="self-center">Type</label>
                         <select
                             className="border bg-white border-gray-300 rounded p-2"
@@ -101,7 +101,7 @@ const AlertCreationPage = () => {
                         </select>
                     </div>
 
-                    <div className="flex flex-row gap-2">
+                    <div className="grid grid-cols-2 w-1/4">
                         <label className="self-center">Limit</label>
                         <input
                             className="border border-gray-300 rounded p-2"
