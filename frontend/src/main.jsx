@@ -5,6 +5,7 @@ import App from "./App.jsx"
 import AlertCreationPage from "./Pages/AlertCreationPage.jsx"
 import AlertDefinitionsPage from "./Pages/AlertDefinitionsPage.jsx"
 import "./index.css"
+import AlertDefinitionModificationPage from "./Pages/AlertModificationPage.jsx"
 
 const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
     {
         path: "/alertDefinitions",
         element: <AlertDefinitionsPage />,
+    },
+    {
+        path: "/modifyAlertDefinition/:id",
+        element: <AlertDefinitionModificationPage />,
     },
 ])
 
