@@ -1,18 +1,20 @@
+import { Link } from "react-router-dom"
+
 const Navbar = () => {
     return (
         <nav className="flex justify-center my-2 py-4 border-b border-purple-800">
             <ul className="flex space-x-4">
                 <li>
-                    <a className="hover:text-purple-800" href="/">
+                    <Link className="hover:text-purple-800" to="/">
                         Home
-                    </a>
+                    </Link>
                 </li>
                 <li>
-                    <a
+                    <Link
                         className="hover:text-purple-800"
-                        href="/alertDefinitions">
+                        to="/alertDefinitions">
                         Manage Alert Definitions
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </nav>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import CustomButton from "./CustomButton"
 
 const AlertDefinitionBox = ({ alertDefinition }) => {
@@ -35,9 +36,9 @@ const AlertDefinitionBox = ({ alertDefinition }) => {
                     content="Delete"
                     func={deleteAlertDefinition}></CustomButton>
 
-                <a href={`/modifyAlertDefinition/${alertDefinition.id}`}>
+                <Link to={`/modifyAlertDefinition/${alertDefinition.id}`}>
                     <CustomButton content="Modify" />
-                </a>
+                </Link>
             </div>
         </div>
     )

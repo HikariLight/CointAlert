@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Navbar from "../components/Navbar"
 import AlertDefinitionBox from "../components/AlertDefinitionBox"
 import CustomButton from "../components/CustomButton"
+import { Link } from "react-router-dom"
 
 const AlertDefinitionsPage = () => {
     const apiURL = import.meta.env.VITE_serverURL
@@ -29,9 +30,9 @@ const AlertDefinitionsPage = () => {
                     Alert Definition Management
                 </h1>
 
-                <a href="/createAlertDefinition">
+                <Link to="/createAlertDefinition">
                     <CustomButton content="Create new Alert Definition" />
-                </a>
+                </Link>
             </div>
 
             <div className="border border-purple-800 rounded p-4 w-full">
