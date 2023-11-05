@@ -1,18 +1,14 @@
-const AlertBox = ({ alert }) => {
+const AlertBox = ({ alert, getAlerts }) => {
     const apiURL = import.meta.env.VITE_serverURL
     const alertsEndpoint = import.meta.env.VITE_alertsEndpoint
 
     const deleteAlert = () => {
-        const request = {
-            method: "DELETE",
-        }
-
-        fetch(apiURL + alertsEndpoint + alert.id, request)
+        fetch(apiURL + alertsEndpoint + alert.id, { method: "DELETE" })
             .then((response) => {
                 return response.json()
             })
             .then((data) => {
-                console.log(data)
+                getAlerts()
             })
             .catch((error) => {
                 console.error("Error fetching data:", error)
@@ -20,7 +16,7 @@ const AlertBox = ({ alert }) => {
     }
 
     return (
-        <div className="border rounded border-purple-800 p-2 grid grid-cols-4">
+        <div className="border rounded border-purple-800 p-2 grid grid-cols-4 shadow-md">
             <div className="col-span-3">
                 <h1 className="text-xl text-purple-800">
                     Alert: {alert.alert_name}

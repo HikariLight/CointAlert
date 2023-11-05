@@ -25,7 +25,7 @@ def verify_alerts(alert_definitions):
         cryptocurrency_name, alert_type, limit = alert_definition["cryptocurrency_name"], alert_definition["alert_type"], alert_definition["limit"]
         cryptocurrency_price = get_crypto_price(cryptocurrency_name)
 
-        if (alert_type == "gte"):
+        if (alert_type == ">="):
             if cryptocurrency_price >= limit:
                 alert = {
                     **alert_definition,
@@ -35,7 +35,7 @@ def verify_alerts(alert_definitions):
                 alert.pop("id")
                 result.append(alert)
 
-        if (alert_type == "lt"):
+        if (alert_type == "<"):
             if cryptocurrency_price < limit:
                 alert = {
                     **alert_definition,
@@ -56,7 +56,7 @@ def random_verify_alerts(alert_definitions):
 
         cryptocurrency_price = random.randint(limit / 2, limit * 2)
 
-        if (alert_type == "gte"):
+        if (alert_type == ">="):
             if cryptocurrency_price >= limit:
                 alert = {
                     **alert_definition,
@@ -66,7 +66,7 @@ def random_verify_alerts(alert_definitions):
                 alert.pop("id")
                 result.append(alert)
 
-        if (alert_type == "lt"):
+        if (alert_type == "<"):
             if cryptocurrency_price < limit:
                 alert = {
                     **alert_definition,

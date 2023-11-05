@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import CustomButton from "./CustomButton"
 
-const AlertDefinitionBox = ({ alertDefinition }) => {
+const AlertDefinitionBox = ({ alertDefinition, getAlertDefinitions }) => {
     const apiURL = import.meta.env.VITE_serverURL
     const alertDefinitionsEndpoint = import.meta.env
         .VITE_alertDefinitionsEndpoint
@@ -14,7 +14,7 @@ const AlertDefinitionBox = ({ alertDefinition }) => {
                 return response.json()
             })
             .then((data) => {
-                console.log(data)
+                getAlertDefinitions()
             })
             .catch((error) => {
                 console.error("Error fetching data:", error)
@@ -22,7 +22,7 @@ const AlertDefinitionBox = ({ alertDefinition }) => {
     }
 
     return (
-        <div className="border rounded border-purple-800 p-2 grid grid-cols-4">
+        <div className="border rounded border-purple-800 p-2 grid grid-cols-4 shadow-md">
             <div className="col-span-3">
                 <h1 className="text-xl text-purple-800">
                     Alert: {alertDefinition.alert_name}

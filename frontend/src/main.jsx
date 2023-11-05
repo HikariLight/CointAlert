@@ -2,10 +2,10 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import App from "./App.jsx"
-import AlertCreationPage from "./Pages/AlertCreationPage.jsx"
-import AlertDefinitionsPage from "./Pages/AlertDefinitionsPage.jsx"
-import "./index.css"
+import AlertDefinitionCreationPage from "./Pages/AlertDefinitionCreationPage.jsx"
+import AlertDefinitionsManagementPage from "./Pages/AlertDefinitionsManagementPage.jsx"
 import AlertDefinitionModificationPage from "./Pages/AlertModificationPage.jsx"
+import "./index.css"
 
 const router = createBrowserRouter([
     {
@@ -14,11 +14,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/createAlertDefinition",
-        element: <AlertCreationPage />,
+        element: <AlertDefinitionCreationPage />,
     },
     {
         path: "/alertDefinitions",
-        element: <AlertDefinitionsPage />,
+        element: <AlertDefinitionsManagementPage />,
     },
     {
         path: "/modifyAlertDefinition/:id",

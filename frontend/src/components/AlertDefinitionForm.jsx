@@ -9,14 +9,20 @@ const AlertDefinitionForm = ({
     alertType,
     setLimit,
     limit,
-    func,
+    formDataCorrectness,
+    buttonContent,
+    buttonFunc,
 }) => {
     return (
         <form className="flex flex-col space-y-4 items-center">
             <div className="grid grid-cols-2 w-1/4">
                 <label className="self-center">Alert Name</label>
                 <input
-                    className="border border-gray-300 rounded p-2"
+                    className={`border bg-white rounded p-2 ${
+                        formDataCorrectness["cryptocurrencyName"]
+                            ? "border-gray-300"
+                            : "border-red-800"
+                    }`}
                     onChange={(event) => {
                         setAlertName(event.target.value)
                     }}
@@ -29,8 +35,16 @@ const AlertDefinitionForm = ({
             <div className="grid grid-cols-2 w-1/4">
                 <label className="self-center">Cryptocurrency</label>
                 <select
-                    className="border bg-white border-gray-300 rounded p-2"
-                    defaultValue={cryptocurrencyName}
+                    className={`border bg-white rounded p-2 ${
+                        formDataCorrectness["cryptocurrencyName"]
+                            ? "border-gray-300"
+                            : "border-red-800"
+                    }`}
+                    defaultValue={
+                        cryptocurrencyName != ""
+                            ? cryptocurrencyName
+                            : "default"
+                    }
                     onChange={(event) => {
                         setCryptocurrencyName(event.target.value)
                     }}>
@@ -53,23 +67,31 @@ const AlertDefinitionForm = ({
             <div className="grid grid-cols-2 w-1/4">
                 <label className="self-center">Type</label>
                 <select
-                    className="border bg-white border-gray-300 rounded p-2"
-                    defaultValue={alertType}
+                    className={`border bg-white rounded p-2 ${
+                        formDataCorrectness["cryptocurrencyName"]
+                            ? "border-gray-300"
+                            : "border-red-800"
+                    }`}
+                    defaultValue={alertType !== "" ? alertType : "default"}
                     onChange={(event) => {
                         setAlertType(event.target.value)
                     }}>
                     <option value="default" disabled>
                         Choose a type
                     </option>
-                    <option value="gte">Greater than or equal: {">="}</option>
-                    <option value="lt">Less than: {"<"} </option>
+                    <option value=">=">Greater than or equal: {">="}</option>
+                    <option value="<">Less than: {"<"} </option>
                 </select>
             </div>
 
             <div className="grid grid-cols-2 w-1/4">
                 <label className="self-center">Limit</label>
                 <input
-                    className="border border-gray-300 rounded p-2"
+                    className={`border bg-white rounded p-2 ${
+                        formDataCorrectness["cryptocurrencyName"]
+                            ? "border-gray-300"
+                            : "border-red-800"
+                    }`}
                     onChange={(event) => {
                         setLimit(event.target.value)
                     }}
@@ -79,7 +101,7 @@ const AlertDefinitionForm = ({
                 />
             </div>
 
-            <CustomButton content="Save Alert Definition" func={func} />
+            <CustomButton content={buttonContent} func={buttonFunc} />
         </form>
     )
 }
