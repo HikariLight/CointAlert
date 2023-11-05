@@ -9,13 +9,18 @@ const AlertDefinitionModificationPage = () => {
         .VITE_alertDefinitionsEndpoint
 
     const [alertDefinition, setAlertDefinition] = useState({})
-    const [alertName, setAlertName] = useState()
-    const [cryptocurrencyName, setCryptocurrencyName] = useState()
-    const [alertType, setAlertType] = useState()
-    const [limit, setLimit] = useState()
-    const params = useParams()
-
+    const [alertName, setAlertName] = useState("")
+    const [cryptocurrencyName, setCryptocurrencyName] = useState("")
+    const [alertType, setAlertType] = useState("")
+    const [limit, setLimit] = useState("")
+    const [formDataCorrectness, setFormDataCorrectness] = useState({
+        alertName: true,
+        cryptocurrencyName: true,
+        alertType: true,
+        limit: true,
+    })
     const [success, setSuccess] = useState(false)
+    const params = useParams()
 
     useEffect(() => {
         fetch(apiURL + alertDefinitionsEndpoint + params.id)
@@ -33,6 +38,12 @@ const AlertDefinitionModificationPage = () => {
     }, [])
 
     const save = () => {
+        const inputCorrectness = verifyInput()
+        if (Object.values(inputCorrectness).includes(false)) {
+            console.error("Form data incorrect.")
+            return false
+        }
+
         const data = {
             id: alertDefinition.id,
             user_id: alertDefinition.user_id,
@@ -68,6 +79,35 @@ const AlertDefinitionModificationPage = () => {
             })
     }
 
+    const verifyInput = () => {
+        const result = {
+            alertName: true,
+            cryptocurrencyName: true,
+            alertType: true,
+            limit: true,
+        }
+
+        console.log({ length: alertName.length })
+        if (alertName.length == 0 || alertName.length == 0) {
+            result["alertName"] = false
+        }
+
+        if (cryptocurrencyName.length == 0) {
+            result["cryptocurrencyName"] = false
+        }
+
+        if (alertType.length == 0) {
+            result["alertType"] = false
+        }
+
+        if (limit.length == 0 || isNaN(Number(limit))) {
+            result["limit"] = false
+        }
+
+        setFormDataCorrectness(result)
+        return result
+    }
+
     return (
         <div className="h-screen w-3/4 mx-auto">
             <Navbar />
@@ -92,7 +132,9 @@ const AlertDefinitionModificationPage = () => {
                     alertType={alertType}
                     setLimit={setLimit}
                     limit={limit}
-                    func={save}
+                    formDataCorrectness={formDataCorrectness}
+                    buttonContent="Save Alert Definition"
+                    buttonFunc={save}
                 />
             )}
         </div>

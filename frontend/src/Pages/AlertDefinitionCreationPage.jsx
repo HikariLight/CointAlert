@@ -1,20 +1,31 @@
 import { useState } from "react"
-import CustomButton from "../components/CustomButton"
 import Navbar from "../components/Navbar"
+import AlertDefinitionForm from "../components/AlertDefinitionForm"
 
 const AlertDefinitionCreationPage = () => {
     const apiURL = import.meta.env.VITE_serverURL
     const alertDefinitionsEndpoint = import.meta.env
         .VITE_alertDefinitionsEndpoint
 
-    const [alertName, setAlertName] = useState()
-    const [cryptocurrencyName, setCryptocurrencyName] = useState()
-    const [alertType, setAlertType] = useState()
-    const [limit, setLimit] = useState()
-
+    const [alertName, setAlertName] = useState("")
+    const [cryptocurrencyName, setCryptocurrencyName] = useState("")
+    const [alertType, setAlertType] = useState("")
+    const [limit, setLimit] = useState("")
+    const [formDataCorrectness, setFormDataCorrectness] = useState({
+        alertName: true,
+        cryptocurrencyName: true,
+        alertType: true,
+        limit: true,
+    })
     const [success, setSuccess] = useState(false)
 
-    const handleClick = () => {
+    const createAlertDefinition = () => {
+        const inputCorrectness = verifyInput()
+        if (Object.values(inputCorrectness).includes(false)) {
+            console.error("Form data incorrect.")
+            return false
+        }
+
         const data = {
             alert_name: alertName,
             alert_type: alertType,
@@ -47,6 +58,35 @@ const AlertDefinitionCreationPage = () => {
             })
     }
 
+    const verifyInput = () => {
+        const result = {
+            alertName: true,
+            cryptocurrencyName: true,
+            alertType: true,
+            limit: true,
+        }
+
+        console.log({ length: alertName.length })
+        if (alertName.length == 0 || alertName.length == 0) {
+            result["alertName"] = false
+        }
+
+        if (cryptocurrencyName.length == 0) {
+            result["cryptocurrencyName"] = false
+        }
+
+        if (alertType.length == 0) {
+            result["alertType"] = false
+        }
+
+        if (limit.length == 0 || isNaN(Number(limit))) {
+            result["limit"] = false
+        }
+
+        setFormDataCorrectness(result)
+        return result
+    }
+
     return (
         <div className="h-screen w-3/4 mx-auto">
             <Navbar />
@@ -61,80 +101,19 @@ const AlertDefinitionCreationPage = () => {
                         Alert Definition Created successfuly
                     </h1>
                 ) : (
-                    <form className="flex flex-col space-y-4 items-center">
-                        <div className="grid grid-cols-2 w-1/4">
-                            <label className="self-center">Alert Name</label>
-                            <input
-                                className="border border-gray-300 rounded p-2"
-                                onChange={(event) => {
-                                    setAlertName(event.target.value)
-                                }}
-                                type="text"
-                                placeholder="Ex: Bitcoin under 5000$ alert"
-                            />
-                        </div>
-
-                        <div className="grid grid-cols-2 w-1/4">
-                            <label className="self-center">
-                                Cryptocurrency
-                            </label>
-                            <select
-                                className="border bg-white border-gray-300 rounded p-2"
-                                defaultValue="default"
-                                onChange={(event) => {
-                                    setCryptocurrencyName(event.target.value)
-                                }}>
-                                <option value="default" disabled>
-                                    Choose a Cryptocurrency
-                                </option>
-                                <option value="BTC">BTC - Bitcoin</option>
-                                <option value="ETH">ETH - Ethereum</option>
-                                <option value="XRP">XRP - Ripple</option>
-                                <option value="LTC">LTC - Litecoin</option>
-                                <option value="BCH">BCH - Bitcoin Cash</option>
-                                <option value="ADA">ADA - Cardano</option>
-                                <option value="XLM">XLM - Stellar</option>
-                                <option value="DOGE">DOGE - Dogecoin</option>
-                                <option value="XMR">XMR - Monero</option>
-                                <option value="EOS">EOS - EOS</option>
-                            </select>
-                        </div>
-
-                        <div className="grid grid-cols-2 w-1/4">
-                            <label className="self-center">Type</label>
-                            <select
-                                className="border bg-white border-gray-300 rounded p-2"
-                                defaultValue="default"
-                                onChange={(event) => {
-                                    setAlertType(event.target.value)
-                                }}>
-                                <option value="default" disabled>
-                                    Choose a type
-                                </option>
-                                <option value=">=">
-                                    Greater than or equal: {">="}
-                                </option>
-                                <option value="<">Less than: {"<"} </option>
-                            </select>
-                        </div>
-
-                        <div className="grid grid-cols-2 w-1/4">
-                            <label className="self-center">Limit</label>
-                            <input
-                                className="border border-gray-300 rounded p-2"
-                                onChange={(event) => {
-                                    setLimit(event.target.value)
-                                }}
-                                type="text"
-                                placeholder="5000"
-                            />
-                        </div>
-
-                        <CustomButton
-                            content="Create Alert"
-                            func={handleClick}
-                        />
-                    </form>
+                    <AlertDefinitionForm
+                        setAlertName={setAlertName}
+                        alertName={alertName}
+                        setCryptocurrencyName={setCryptocurrencyName}
+                        cryptocurrencyName={cryptocurrencyName}
+                        setAlertType={setAlertType}
+                        alertType={alertType}
+                        setLimit={setLimit}
+                        limit={limit}
+                        formDataCorrectness={formDataCorrectness}
+                        buttonContent="Create Alert Definition"
+                        buttonFunc={createAlertDefinition}
+                    />
                 )}
             </div>
         </div>
