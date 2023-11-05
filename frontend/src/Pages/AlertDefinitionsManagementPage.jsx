@@ -24,6 +24,19 @@ const AlertDefinitionsManagementPage = () => {
             })
     }
 
+    const deleteAlertDefinitions = () => {
+        fetch(apiURL + alertDefinitionsEndpoint, { method: "DELETE" })
+            .then((response) => {
+                return response.json()
+            })
+            .then(() => {
+                getAlertDefinitions()
+            })
+            .catch((error) => {
+                console.error("Error fetching data: ", error)
+            })
+    }
+
     useEffect(() => {
         getAlertDefinitions()
     }, [])
@@ -37,12 +50,19 @@ const AlertDefinitionsManagementPage = () => {
                     Alert Definition Management
                 </h1>
 
-                <Link to="/createAlertDefinition">
+                <div className="grid grid-cols-2 gap-2">
+                    <Link to="/createAlertDefinition">
+                        <CustomButton
+                            content="Create new Alert Definition"
+                            func={() => {}}
+                        />
+                    </Link>
+
                     <CustomButton
-                        content="Create new Alert Definition"
-                        func={() => {}}
+                        content="Delete All Alert Definitions"
+                        func={deleteAlertDefinitions}
                     />
-                </Link>
+                </div>
             </div>
 
             <div className="border border-purple-800 rounded p-4 w-full">

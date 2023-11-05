@@ -61,6 +61,20 @@ async def delete_alert_definition(id: int):
     try:
         response = supabase_client.table('alert_definitions').delete().eq('id', id).execute()
     except Exception as e:
-        print(" > [/deleteAlertDefinition] Alert deletion from DB error: ", e)
+        print(" > [DELETE /alertDefinitions/id] Alert deletion from DB error: ", e)
+    return json.dumps({"status": "success"})
+
+@router.delete("/alertDefinitions")
+async def delete_alert_definition():
+    try:
+        response = supabase_client.table('alert_definitions').delete().neq("id", "0").execute()
+    except Exception as e:
+        print(" > [DELETE /alertDefinitions] Alert Definitions deletion from DB error: ", e)
+        return json.dumps(
+            {
+                "status": "fail",
+                "reason": str(e)
+            }
+        )
 
     return json.dumps({"status": "success"})
