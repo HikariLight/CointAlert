@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import CustomButton from "./CustomButton"
 
-const AlertDefinitionBox = ({ alertDefinition }) => {
+const AlertDefinitionBox = ({ alertDefinition, getAlertDefinitions }) => {
     const apiURL = import.meta.env.VITE_serverURL
     const alertDefinitionsEndpoint = import.meta.env
         .VITE_alertDefinitionsEndpoint
@@ -14,7 +14,7 @@ const AlertDefinitionBox = ({ alertDefinition }) => {
                 return response.json()
             })
             .then((data) => {
-                console.log(data)
+                getAlertDefinitions()
             })
             .catch((error) => {
                 console.error("Error fetching data:", error)

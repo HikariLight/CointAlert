@@ -9,22 +9,9 @@ const App = () => {
 
     const [alerts, setAlerts] = useState([])
 
-    useEffect(() => {
+    const getAlerts = () => {
         fetch(apiURL + alertsEndpoint)
             .then((response) => response.json())
-            .then((data) => {
-                setAlerts(JSON.parse(data))
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error)
-            })
-    }, [])
-
-    const getAlerts = async () => {
-        fetch(apiURL + alertsEndpoint)
-            .then((response) => {
-                return response.json()
-            })
             .then((data) => {
                 setAlerts(JSON.parse(data))
             })
@@ -45,6 +32,10 @@ const App = () => {
                 console.error("Error fetching data:", error)
             })
     }
+
+    useEffect(() => {
+        getAlerts()
+    }, [])
 
     return (
         <div className="h-screen w-3/4 mx-auto">
@@ -70,7 +61,7 @@ const App = () => {
 
             <div className="grid grid-cols-3 gap-3">
                 {alerts.map((alert, index) => (
-                    <AlertBox alert={alert} key={index} />
+                    <AlertBox alert={alert} getAlerts={getAlerts} key={index} />
                 ))}
             </div>
         </div>

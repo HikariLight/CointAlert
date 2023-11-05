@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import AlertDefinitionBox from "../components/AlertDefinitionBox"
 import CustomButton from "../components/CustomButton"
-import { Link } from "react-router-dom"
 
 const AlertDefinitionsPage = () => {
     const apiURL = import.meta.env.VITE_serverURL
@@ -11,7 +11,7 @@ const AlertDefinitionsPage = () => {
 
     const [alertDefinitions, setAlertDefinitions] = useState([])
 
-    useEffect(() => {
+    const getAlertDefinitions = () => {
         fetch(apiURL + alertDefinitionsEndpoint)
             .then((response) => {
                 return response.json()
@@ -19,6 +19,13 @@ const AlertDefinitionsPage = () => {
             .then((data) => {
                 setAlertDefinitions(JSON.parse(data))
             })
+            .catch((error) => {
+                console.error("Error fetching data: ", error)
+            })
+    }
+
+    useEffect(() => {
+        getAlertDefinitions()
     }, [])
 
     return (
@@ -41,6 +48,7 @@ const AlertDefinitionsPage = () => {
                         <AlertDefinitionBox
                             alertDefinition={alertDefinition}
                             key={index}
+                            getAlertDefinitions={getAlertDefinitions}
                         />
                     ))}
                 </div>
