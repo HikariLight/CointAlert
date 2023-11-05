@@ -15,11 +15,12 @@ const AlertDefinitionModificationPage = () => {
     const [limit, setLimit] = useState()
     const params = useParams()
 
+    const [success, setSuccess] = useState(false)
+
     useEffect(() => {
         fetch(apiURL + alertDefinitionsEndpoint + params.id)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
                 setAlertName(data.alert_name)
                 setCryptocurrencyName(data.cryptocurrency_name)
                 setAlertType(data.alert_type)
@@ -57,7 +58,10 @@ const AlertDefinitionModificationPage = () => {
                 return response.json()
             })
             .then((data) => {
-                console.log(data)
+                const responseStatus = JSON.parse(data)["status"]
+                if (responseStatus == "success") {
+                    setSuccess(true)
+                }
             })
             .catch((error) => {
                 console.error("Error with PUT request:", error)
@@ -74,17 +78,23 @@ const AlertDefinitionModificationPage = () => {
                 </h1>
             </div>
 
-            <AlertDefinitionForm
-                setAlertName={setAlertName}
-                alertName={alertName}
-                setCryptocurrencyName={setCryptocurrencyName}
-                cryptocurrencyName={cryptocurrencyName}
-                setAlertType={setAlertType}
-                alertType={alertType}
-                setLimit={setLimit}
-                limit={limit}
-                func={save}
-            />
+            {success ? (
+                <h1 className="text-2xl text-center text-green-700">
+                    Alert Definition Modified Successfully
+                </h1>
+            ) : (
+                <AlertDefinitionForm
+                    setAlertName={setAlertName}
+                    alertName={alertName}
+                    setCryptocurrencyName={setCryptocurrencyName}
+                    cryptocurrencyName={cryptocurrencyName}
+                    setAlertType={setAlertType}
+                    alertType={alertType}
+                    setLimit={setLimit}
+                    limit={limit}
+                    func={save}
+                />
+            )}
         </div>
     )
 }
