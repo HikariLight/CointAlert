@@ -14,7 +14,11 @@ async def delete_alert(id: int):
     try:
         response = supabase_client.table('alerts').delete().eq("id", id).execute()
     except Exception as e:
-        print(" > [/deleteAlert] Alert deletion from DB error: ", e)
+        print(" > [DELETE /alerts/id] Alert deletion from DB error: ", e)
+        return json.dumps({
+            "status": "fail",
+            "reason": str(e)
+        })
 
     return json.dumps({"status": "success"})
 
@@ -23,6 +27,10 @@ async def delete_all_alerts():
     try:
         response = supabase_client.table('alerts').delete().neq("id", "0").execute()
     except Exception as e:
-        print(" > [/deleteAllAlerts] Alerts deletion from DB error: ", e)
+        print(" > [DELETE /alerts] Alerts deletion from DB error: ", e)
+        return json.dumps({
+            "status": "fail",
+            "reason": str(e)
+        })
 
     return json.dumps({"status": "success"})
