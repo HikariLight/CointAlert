@@ -40,7 +40,7 @@ async def create_alert_definition(request: Request):
     except Exception as e:
         print(" > [/createAlertDefinition] Alert insertion into DB error: ", e)
 
-    json.dumps({"status": "success"})
+    return json.dumps({"status": "success"})
 
 @router.put("/alertDefinitions")
 async def return_alert_definitions(request: Request):
@@ -54,7 +54,7 @@ async def return_alert_definitions(request: Request):
         print(" > [/modifyAlertDefinition] Alert definition modification error: ", e)
 
 
-    json.dumps({"status": "success"})
+    return json.dumps({"status": "success"})
 
 @router.delete("/alertDefinitions/{id}")
 async def delete_alert_definition(id: int):
@@ -63,4 +63,4 @@ async def delete_alert_definition(id: int):
     except Exception as e:
         print(" > [/deleteAlertDefinition] Alert deletion from DB error: ", e)
 
-    json.dumps({"status": "success"})
+    return json.dumps({"status": "success"})
