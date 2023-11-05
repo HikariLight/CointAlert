@@ -25,8 +25,8 @@ const App = () => {
             .then((response) => {
                 return response.json()
             })
-            .then((data) => {
-                console.log(data)
+            .then(() => {
+                getAlerts()
             })
             .catch((error) => {
                 console.error("Error fetching data:", error)
