@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar"
 import AlertDefinitionBox from "../components/AlertDefinitionBox"
 import CustomButton from "../components/CustomButton"
 
-const AlertDefinitionsPage = () => {
+const AlertDefinitionsManagementPage = () => {
     const apiURL = import.meta.env.VITE_serverURL
     const alertDefinitionsEndpoint = import.meta.env
         .VITE_alertDefinitionsEndpoint
@@ -38,7 +38,10 @@ const AlertDefinitionsPage = () => {
                 </h1>
 
                 <Link to="/createAlertDefinition">
-                    <CustomButton content="Create new Alert Definition" />
+                    <CustomButton
+                        content="Create new Alert Definition"
+                        func={() => {}}
+                    />
                 </Link>
             </div>
 
@@ -57,4 +60,4 @@ const AlertDefinitionsPage = () => {
     )
 }
 
-export default AlertDefinitionsPage
+export default AlertDefinitionsManagementPage

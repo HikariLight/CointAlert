@@ -2,7 +2,7 @@ import { useState } from "react"
 import CustomButton from "../components/CustomButton"
 import Navbar from "../components/Navbar"
 
-const AlertCreationPage = () => {
+const AlertDefinitionCreationPage = () => {
     const apiURL = import.meta.env.VITE_serverURL
     const alertDefinitionsEndpoint = import.meta.env
         .VITE_alertDefinitionsEndpoint
@@ -141,4 +141,4 @@ const AlertCreationPage = () => {
     )
 }
 
-export default AlertCreationPage
+export default AlertDefinitionCreationPage
