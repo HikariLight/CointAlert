@@ -61,8 +61,8 @@ const AlertDefinitionForm = ({
                     <option value="default" disabled>
                         Choose a type
                     </option>
-                    <option value="gte">Greater than or equal: {">="}</option>
-                    <option value="lt">Less than: {"<"} </option>
+                    <option value=">=">Greater than or equal: {">="}</option>
+                    <option value="<">Less than: {"<"} </option>
                 </select>
             </div>
 
