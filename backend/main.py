@@ -25,7 +25,7 @@ async def root():
     return "Hello! CoinAlert API here!"
 
 @app.on_event("startup")
-@repeat_every(seconds=1)
+@repeat_every(seconds= 60 * 30) # Every half hour
 def on_repeat():
     alert_definitions = get_alert_definitions(supabase_client)
     detected_alerts = verify_alerts(alert_definitions)
