@@ -16,7 +16,7 @@ const AlertBox = ({ alert, getAlerts }) => {
     }
 
     return (
-        <div className="border rounded border-purple-800 p-2 grid grid-cols-4">
+        <div className="border rounded border-purple-800 p-2 grid grid-cols-4 shadow-md">
             <div className="col-span-3">
                 <h1 className="text-xl text-purple-800">
                     Alert: {alert.alert_name}
