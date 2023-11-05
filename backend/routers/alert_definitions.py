@@ -35,7 +35,7 @@ async def create_alert_definition(request: Request):
         "alert_name": alert_name,
         "alert_type": alert_type,
         "cryptocurrency_name": cryptocurrency_name,
-        "limit": int(limit)
+        "limit": limit
     }
 
     try:
