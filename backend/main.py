@@ -26,6 +26,9 @@ async def root():
 
 @app.on_event("startup")
 @repeat_every(seconds= 60 * 30) # Every half hour
+# Note: Ideally we should verify for alerts every second, 
+# but due to CoinAPI having a 100 per day limit on their free tier,
+# we have to do API calls more sparingly to capture price fluctuations throughout the day.
 def on_repeat():
     alert_definitions = get_alert_definitions(supabase_client)
     detected_alerts = verify_alerts(alert_definitions)
