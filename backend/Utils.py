@@ -49,6 +49,11 @@ def verify_alerts(alert_definitions):
 
 
 def random_verify_alerts(alert_definitions):
+    """
+    Function for testing alert definition verification logic.
+    It generates random prices for a given cryptocurrency within [limit/2, limit*2]
+    CoinAPI has a limit of 100 daily requests, making it testing while in development.
+    """
     result = []
 
     for alert_definition in alert_definitions:
