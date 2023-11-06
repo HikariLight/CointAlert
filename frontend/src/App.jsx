@@ -34,7 +34,10 @@ const App = () => {
     }
 
     useEffect(() => {
-        getAlerts()
+        const intervalId = setInterval(getAlerts, 5000) // 5000 milliseconds = 5 seconds
+        return () => {
+            clearInterval(intervalId)
+        }
     }, [])
 
     return (
