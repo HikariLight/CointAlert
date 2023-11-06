@@ -3,7 +3,7 @@ from fastapi_utils.tasks import repeat_every
 from fastapi.middleware.cors import CORSMiddleware
 from routers import alerts, alert_definitions
 
-from Utils import verify_alerts
+from AlertVerification import verify_alerts
 from DB import get_alert_definitions
 from dependencies import supabase_client
 
