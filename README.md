@@ -9,7 +9,7 @@ Created using React, FastAPI, Supabase and [CoinAPI](https://docs.coinapi.io)
 
 #### The principle
 - The code has a repeating fucntion (FastAPI functionality `repeat_every()`) that executes a verification function every 30 minutes or so.
-- The verification makes an API call to CoinAPI and verifies if any of the alert definitions raise any alerts.
+- The verification function makes an API call to CoinAPI to get the cryptocurrencies' prices and verifies if any of the alert definitions raise any alerts.
 - If any alerts are detected, the alerts are stored in a PostgreSQL database (Supabase)
 - The API provides routes for the frontend to get / modify /delete the alerts and alert definitions.
 - The frontend app reloads the alerts automatically every 5 seconds, or upon page refresh.
