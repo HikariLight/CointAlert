@@ -29,3 +29,7 @@ Created using React, FastAPI, Supabase and [CoinAPI](https://docs.coinapi.io)
 ###### Execution
 - `backend/`: Run the command `uvicorn main:app --reload`
 - `frontend/`: Run the command `npm run dev`
+
+#### Live links 
+- [Live frontend](https://coinalert.netlify.app/)
+- [API link](https://coinalert.onrender.com)
