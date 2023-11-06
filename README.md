@@ -3,7 +3,7 @@ My solution to Intuition's technical test.
 Created using React, FastAPI, Supabase and [CoinAPI](https://docs.coinapi.io)
 
 #### Implemented functionalities
-- An API for Creation / Modification / Deletion of alert definitions
+- An API for Creation / Modification / Deletion of alerts and alert definitions
 - Multi-Currency support (including BTC)
 - User Interface
 
@@ -12,7 +12,7 @@ Created using React, FastAPI, Supabase and [CoinAPI](https://docs.coinapi.io)
 - The verification makes an API call to CoinAPI and verifies if any of the alert definitions raise any alerts.
 - If any alerts are detected, the alerts are stored in a PostgreSQL database (Supabase)
 - The API provides routes for the frontend to get / modify /delete the alerts and alert definitions.
-- The frontend app loads the alerts upon page refresh or on refresh button click.
+- The frontend app reloads the alerts automatically every 5 seconds, or upon page refresh.
 - Note: Ideally we should verify for alerst every second, but due to CoinAPI having a 100 per day limit, we have to do API calls more sparingly to capture price fluctuations throughout the day.
 
 
